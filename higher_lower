@@ -1,0 +1,56 @@
+import random
+from data import data
+from poster import higher_lower, vs
+
+lives = 3
+
+def game():
+    global lives
+
+    print(higher_lower)
+
+    compare_a = random.choice(data)
+    compare_b = random.choice(data)
+
+    while compare_a == compare_b:
+        compare_b = random.choice(data)
+
+    print(
+        f"OPTION A => Name: {compare_a['name']} | "
+        f"{compare_a['description']} | "
+        f"{compare_a['country']}"
+    )
+
+    print(vs)
+
+    print(
+        f"OPTION B => Name: {compare_b['name']} | "
+        f"{compare_b['description']} | "
+        f"{compare_b['country']}"
+    )
+
+    choice = input(
+        "Who has more followers? Type 'A' or 'B': "
+    ).upper()
+
+    follower_count_a = compare_a['follower_count']
+    follower_count_b = compare_b['follower_count']
+
+    if (
+        follower_count_a > follower_count_b and choice == 'A'
+    ) or (
+        follower_count_b > follower_count_a and choice == 'B'
+    ):
+        print("✅ Correct!\n")
+        return True
+
+    else:
+        lives -= 1
+        print(f"❌ Wrong! Lives left: {lives}\n")
+        return False
+
+
+while lives > 0:
+    game()
+
+print("GAME OVER")
